@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Admin</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <style>
+        .side-panel {
+            background-color: #1e2024;
+            /* dark blue color */
+        }
+
+        .image-container {
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .header-image {
+            width: 100%;
+            max-width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            box-shadow: 3px 3px 10px rgba(163, 60, 60, 0.1);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 50;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.4);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100">
+    <!-- Side Panel -->
+    <div class="side-panel bg-white h-screen w-64 fixed left-0 top-0 shadow-lg p-4">
+        <div class="text-white logo text-2xl font-bold mb-4">Contents</div>
+        <p class="mb-2"> <span class="font-bold text-blue-600">Welcome to National ICT Hub website!</span></p>
+        <ul class="text-white mt-4">
+            <li class="mb-2"> <i class="bi bi-gear mr-2"></i> <a href="overview.html"
+                    class="hover:underline">Overview</a><br>
+            </li><br>
+            <li class="mb-2"> <i class="bi bi-buildings mr-2"></i><a href="companies.html"
+                    class="hover:underline">Companies</a></li><br>
+            <li class="mb-2"> <i class="bi bi-gear mr-2"></i><a href="settings.html"
+                    class="hover:underline">Settings</a></li><br>
+            <li class="mb-2"> <i class="bi bi-person-circle mr-2"></i><a href="profile.html"
+                    class="hover:underline">Profile</a></li><br>
+            <li class="mb-2"> <i class="bi bi-question-circle mr-2"></i><a href="help.html"
+                    class="hover:underline">Help</a></li><br>
+            <li class="mb-2"> <i class="bi bi-person-lines-fill mr-2"></i><a href="contact_us.html"
+                    class="hover:underline">Contact Us</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="ml-64 p-4">
+        <!-- Image Section -->
+        <div class="image-container mb-4">
+            <img src="Image.jpg" alt="Header Image" class="header-image rounded-lg shadow-lg">
+        </div>
+
+        <!-- Admin Details Section -->
+        <div class="details-container bg-white rounded-lg shadow-lg p-6">
+            <h1 class="text-2xl font-bold mb-4">Admin Details</h1>
+            <div class="mb-4">
+                <p><strong>Name:</strong> <span id="name"></span></p>
+                <p><strong>Department:</strong> <span id="department"></span></p>
+                <p><strong>Role:</strong> <span id="role"></span></p>
+                <p><strong>Phone:</strong> <span id="phone"></span></p>
+                <p><strong>Last Login Date:</strong> <span id="lastLoginDate"></span></p>
+                <p><strong>Last Login Time:</strong> <span id="lastLoginTime"></span></p>
+            </div>
+            <div class="mb-4">
+                <button id="editAdmin" class="edit-button bg-blue-600 text-white px-4 py-2 rounded">Edit Admin</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Form Modal -->
+    <div id="admin-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <form id="admin-form" class="p-5">
+                <div class="mb-4">
+                    <label for="edit-name" class="block text-gray-700">Name</label>
+                    <input type="text" id="edit-name" name="name" class="w-full p-2 border border-gray-300 rounded"
+                        required>
+                </div>
+                <div class="mb-4">
+                    <label for="edit-department" class="block text-gray-700">Department</label>
+                    <input type="text" id="edit-department" name="department"
+                        class="w-full p-2 border border-gray-300 rounded" required>
+                </div>
+                <div class="mb-4">
+                    <label for="edit-role" class="block text-gray-700">Role</label>
+                    <input type="text" id="edit-role" name="role" class="w-full p-2 border border-gray-300 rounded"
+                        required>
+                </div>
+                <div class="mb-4">
+                    <label for="edit-phone" class="block text-gray-700">Phone</label>
+                    <input type="tel" id="edit-phone" name="phone" class="w-full p-2 border border-gray-300 rounded"
+                        required>
+                </div>
+                <div class="mb-4">
+                    <label for="edit-lastLoginDate" class="block text-gray-700">Last Login Date</label>
+                    <input type="date" id="edit-lastLoginDate" name="lastLoginDate"
+                        class="w-full p-2 border border-gray-300 rounded" required>
+                </div>
+                <div class="mb-4">
+                    <label for="edit-lastLoginTime" class="block text-gray-700">Last Login Time</label>
+                    <input type="time" id="edit-lastLoginTime" name="lastLoginTime"
+                        class="w-full p-2 border border-gray-300 rounded" required>
+                </div>
+                <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded">Save</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const adminId = urlParams.get('id');
+
+            const admins = [
+                { id: '1', name: 'Neil Sims', department: 'Development', role: 'React Developer', phone: '+1234567890', lastLoginDate: '2024-06-10', lastLoginTime: '08:30' },
+                { id: '2', name: 'Bonnie Green', department: 'Design', role: 'Designer', phone: '+1234567890', lastLoginDate: '2024-06-09', lastLoginTime: '09:45' },
+                { id: '3', name: 'Michael Gough', department: 'Marketing', role: 'Marketing Specialist', phone: '+1234567890', lastLoginDate: '2024-06-10', lastLoginTime: '10:15' },
+                { id: '4', name: 'Lana Byrd', department: 'Sales', role: 'Sales Manager', phone: '+1234567890', lastLoginDate: '2024-06-08', lastLoginTime: '11:30' }
+            ];
+
+            const admin = admins.find(a => a.id === adminId);
+
+            if (admin) {
+                document.getElementById('name').textContent = admin.name;
+                document.getElementById('department').textContent = admin.department;
+                document.getElementById('role').textContent = admin.role;
+                document.getElementById('phone').textContent = admin.phone;
+                document.getElementById('lastLoginDate').textContent = admin.lastLoginDate;
+                document.getElementById('lastLoginTime').textContent = admin.lastLoginTime;
+
+                // Populate form fields with admin details for editing
+                document.getElementById('edit-name').value = admin.name;
+                document.getElementById('edit-department').value = admin.department;
+                document.getElementById('edit-role').value = admin.role;
+                document.getElementById('edit-phone').value = admin.phone;
+                document.getElementById('edit-lastLoginDate').value = admin.lastLoginDate;
+                document.getElementById('edit-lastLoginTime').value = admin.lastLoginTime;
+            }
+
+            // Get the modal
+            const modal = document.getElementById('admin-modal');
+            const editAdminButton = document.getElementById('editAdmin');
+            const closeButton = document.querySelector('.close');
+
+            // When the user clicks the button, open the modal
+            editAdminButton.addEventListener('click', function (e) {
+                e.preventDefault();
+                modal.style.display = 'block';
+            });
+
+            // When the user clicks on <span> (x), close the modal
+            closeButton.addEventListener('click', function () {
+                modal.style.display = 'none';
+            });
+
+            // When the user clicks anywhere outside of the modal, close it
+            window.addEventListener('click', function (event) {
+                if (event.target == modal) {
+                    modal.style.display = 'none';
+                }
+            });
+
+            // Save updated admin data and close modal
+            const editForm = document.getElementById('admin-form');
+            editForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                // Update admin details from form
+                document.getElementById('name').textContent = document.getElementById('edit-name').value;
+                document.getElementById('department').textContent = document.getElementById('edit-department').value;
+                document.getElementById('role').textContent = document.getElementById('edit-role').value;
+                document.getElementById('phone').textContent = document.getElementById('edit-phone').value;
+                document.getElementById('lastLoginDate').textContent = document.getElementById('edit-lastLoginDate').value;
+                document.getElementById('lastLoginTime').textContent = document.getElementById('edit-lastLoginTime').value;
+
+                // Hide edit form modal
+                modal.style.display = 'none';
+            });
+        });
+    </script>
+</body>
+
+</html>

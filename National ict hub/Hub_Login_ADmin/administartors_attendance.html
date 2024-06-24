@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+
+
+</head>
+<style>
+    .search {
+    
+       
+
+    }
+
+    .noti {
+        margin-top: -80px;
+        margin-left: 1000px;
+
+
+    }
+
+    .logout-paragraph {
+        margin-top: 8rem;
+    }
+
+    .mes {
+        margin-top: -48px;
+        margin-left: -40px;
+
+
+    }
+
+    .mt-0 {
+        margin-right: 0;
+
+    }
+
+    .sidebar,
+    ul {
+        justify-content: flex-end;
+        /* Aligns the items to the start (left) */
+        padding: 0;
+        /* Removes any padding */
+        margin-left: 0;
+        margin: 0;
+        align-items: flex-end;
+
+    }
+
+    .sidebar,
+    a {
+        text-decoration: none;
+    }
+</style>
+
+<body class="flex">
+    <!-- Side Panel -->
+
+
+
+    <div class="relative overflow-x-a9uto shadow-md sm:rounded-lg">
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th scope="col" class="px-6 py-3">Name</th>
+                    <th scope="col" class="px-6 py-3">Department</th>
+                    <th scope="col" class="px-6 py-3">Role</th>
+                    <th scope="col" class="px-6 py-3">Phone</th>
+                    <th scope="col" class="px-6 py-3">Last Login Date</th>
+                    <th scope="col" class="px-6 py-3">Last Login Time</th>
+                </tr>
+            </thead>
+            <tbody id="admin-table-body">
+                <!-- Rows will be populated by JavaScript -->
+            </tbody>
+        </table>
+    </div>
+    </div>
+
+    <script>
+        // Sample admin data
+        const admins = [
+            { id: '1', name: 'Neil Sims', department: 'Development', role: 'React Developer', phone: '+1234567890', lastLoginDate: '2024-06-10', lastLoginTime: '08:30' },
+            { id: '2', name: 'Bonnie Green', department: 'Design', role: 'Designer', phone: '+1234567890', lastLoginDate: '2024-06-09', lastLoginTime: '09:45' },
+            { id: '3', name: 'Michael Gough', department: 'Marketing', role: 'Marketing Specialist', phone: '+1234567890', lastLoginDate: '2024-06-10', lastLoginTime: '10:15' },
+            { id: '4', name: 'Lana Byrd', department: 'Sales', role: 'Sales Manager', phone: '+1234567890', lastLoginDate: '2024-06-08', lastLoginTime: '11:30' },
+
+        ];
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const tableBody = document.getElementById('admin-table-body');
+
+            admins.forEach(admin => {
+                const row = document.createElement('tr');
+                row.className = 'bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600';
+
+                row.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                        <div class="flex items-center">
+                            <img class="w-10 h-10 rounded-full mr-4" src="Image.jpg" alt="${admin.name}">
+                            <div>${admin.name}</div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${admin.department}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${admin.role}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${admin.phone}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${admin.lastLoginDate}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${admin.lastLoginTime}</td>
+                `;
+
+                tableBody.appendChild(row);
+            });
+        });
+    </script>
+</body>
+
+</html>

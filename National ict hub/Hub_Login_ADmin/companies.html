@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/DwwykcV8Qyq46cDfL" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+</head>
+
+<body>
+    <!-- Side Panel -->
+    <div class="fixed-sidebar">
+        <div class="logoDiv">
+            <img id="imglogo" src="logo.png" alt="logo">
+        </div>
+        <br>
+        <div>
+            <div class="sidebar">
+                <ul class="text-white mt-0">
+                    <li class="mb-1 section-link" data-target="all"><i class="bi bi-list"></i> <a href=""
+                            class="text-white hover:underline">Dashboard</a></li><br>
+                    <li class="mb-1 dropdown">
+                        <i class="bi bi-person-check-fill"></i>
+                        <a href="javascript:void(0);" class="text-white hover:underline"
+                            onclick="toggleDropdown('attendanceDropdown')">Attendance</a>
+                        <ul id="attendanceDropdown" class="dropdown-content">
+                            <li><a href="#" class="text-white hover:underline section-link"
+                                    data-target="innovator">Innovators</a></li>
+                            <li><a href="#" class="text-white hover:underline section-link"
+                                    data-target="admin">Administrators</a></li>
+                            <li><a href="#" class="text-white hover:underline section-link"
+                                    data-target="admin-ino">All</a></li>
+                        </ul>
+                    </li><br>
+                    <li class="mb-1 dropdown">
+                        <i class="bi bi-people-fill"></i>
+                        <a href="javascript:void(0);" class="text-white hover:underline"
+                            onclick="toggleDropdown('membersDropdown')">Members</a>
+                        <ul id="membersDropdown" class="dropdown-content">
+                            <li><a href="#" class="text-white hover:underline section-link"
+                                    data-target="member-admin">Administrators</a></li>
+                            <li><a href="#" class="text-white hover:underline section-link"
+                                    data-target="member-ino">Innovators</a></li>
+                            <li><a href="#" class="text-white hover:underline section-link"
+                                    data-target="admin-all">All</a></li>
+                        </ul>
+                    </li><br>
+                    <li class="mb-1"><i class="bi bi-buildings"></i><a href="companies.html"
+                            class="text-white hover:underline ">Companies</a></li>
+                </ul>
+
+                <p class="logout-paragraph">
+                    <i class="bi bi-box-arrow-left"></i>
+                    <a href="index.html" id="words" class="text-white-600 hover:underline"
+                        style="color: white;">Logout</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fixed Header -->
+    <div class="fixed-header">
+        <h2 class="text-4xl mb-4">Welcome!</h2>
+        <form class="search d-flex align-items-center p-3" role="search">
+            <input class="form-control  me-2 " type="search" placeholder="Search Here" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+        <!-- Profile and Notifications -->
+        <div class="top-icons">
+            <i class="bi bi-bell-fill" style="font-size: 1.2em"></i>
+            <i class="bi bi-chat" style="font-size: 1.2em"></i>
+            <a href="edit_admin.html" title="Edit Profile" class="flex flex-col items-center">
+                <i class="bi bi-person-circle text-2xl position-relative" style="font-size: 2em"></i>
+            </a>
+            <span class="text-sm text-black-800">Prossy Nabbona</span>
+        </div>
+    </div>
+    <style>
+        .company-card:hover {
+            transform: scale(1.05);
+
+         
+        }
+        #divcompanies{
+        margin-top: 100px;
+        border-color: black ;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-left: 130px;
+        }
+        
+
+           
+    </style>
+</head>
+
+<body class="bg-gray-100">
+    <!-- Main Content -->
+    <div class="w-full p-4" id="divcompanies">
+        <h2 class="text-3xl mb-4 text-center">Companies at National ICT Hub</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <!-- Example of a company card -->
+            <div class="company-card bg-white p-6 rounded-lg shadow-md transition-transform transform duration-200">
+                <h3 class="text-xl font-bold mb-2">Cognosphere  Dynamics Limited</h3>
+                <p class="mb-4">Deals in AI ,WEB and Robotics.</p>
+                <a href="company_details.html?id=1" class="text-blue-500 hover:underline">View Details</a>
+            </div>
+            
+            <div class="company-card bg-white p-6 rounded-lg shadow-md transition-transform transform duration-200">
+                <h3 class="text-xl font-bold mb-2">Microfuse Limited</h3>
+                <p class="mb-4">Brief description of Company B.</p>
+                <a href="company_details.html?id=2" class="text-blue-500 hover:underline">View Details</a>
+            </div>
+            <div class="company-card bg-white p-6 rounded-lg shadow-md transition-transform transform duration-200">
+                <h3 class="text-xl font-bold mb-2">Company C</h3>
+                <p class="mb-4">Brief description of Company C.</p>
+                <a href="company_details.html?id=3" class="text-blue-500 hover:underline">View Details</a>
+            </div>
+            <div class="company-card bg-white p-6 rounded-lg shadow-md transition-transform transform duration-200">
+                <h3 class="text-xl font-bold mb-2">Company C</h3>
+                <p class="mb-4">Brief description of Company C.</p>
+                <a href="company_details.html?id=3" class="text-blue-500 hover:underline">View Details</a>
+            </div>
+            <div class="company-card bg-white p-6 rounded-lg shadow-md transition-transform transform duration-200">
+                <h3 class="text-xl font-bold mb-2">Company C</h3>
+                <p class="mb-4">Brief description of Company C.</p>
+                <a href="company_details.html?id=3" class="text-blue-500 hover:underline">View Details</a>
+            </div>
+            <div class="company-card bg-white p-6 rounded-lg shadow-md transition-transform transform duration-200">
+                <h3 class="text-xl font-bold mb-2">Company C</h3>
+                <p class="mb-4">Brief description of Company C.</p>
+                <a href="company_details.html?id=3" class="text-blue-500 hover:underline">View Details</a>
+            </div>
+           
+           
+        </div>
+    </div>
+</body>
+
+</html>

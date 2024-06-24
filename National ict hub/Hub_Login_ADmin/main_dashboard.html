@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/DwwykcV8Qyq46cDfL" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+</head>
+
+<body>
+    <!-- Side Panel -->
+    <div class="fixed-sidebar">
+        <div class="logoDiv">
+            <img id="imglogo" src="logo.png" alt="logo">
+        </div>
+        <br>
+        <div>
+            <div class="sidebar">
+                <ul class="text-white mt-0">
+                    <li class="mb-1 section-link" data-target="all"><i class="bi bi-list"></i> <a href=""
+                            class="text-white hover:underline">Dashboard</a></li><br>
+                    <li class="mb-1 dropdown">
+                        <i class="bi bi-person-check-fill"></i>
+                        <a href="javascript:void(0);" class="text-white hover:underline"
+                            onclick="toggleDropdown('attendanceDropdown')">Attendance</a>
+                        <ul id="attendanceDropdown" class="dropdown-content">
+                            <li><a href="#" class="text-white hover:underline section-link"
+                                    data-target="innovator">Innovators</a></li>
+                            <li><a href="#" class="text-white hover:underline section-link"
+                                    data-target="admin">Administrators</a></li>
+                            <li><a href="#" class="text-white hover:underline section-link"
+                                    data-target="admin-ino">All</a></li>
+                        </ul>
+                    </li><br>
+                    <li class="mb-1 dropdown">
+                        <i class="bi bi-people-fill"></i>
+                        <a href="javascript:void(0);" class="text-white hover:underline"
+                            onclick="toggleDropdown('membersDropdown')">Members</a>
+                        <ul id="membersDropdown" class="dropdown-content">
+                            <li><a href="#" class="text-white hover:underline section-link"
+                                    data-target="member-admin">Administrators</a></li>
+                            <li><a href="#" class="text-white hover:underline section-link"
+                                    data-target="member-ino">Innovators</a></li>
+                            <li><a href="#" class="text-white hover:underline section-link"
+                                    data-target="admin-all">All</a></li>
+                        </ul>
+                    </li><br>
+                    <li class="mb-1"><i class="bi bi-buildings"></i><a href="companies.html"
+                            class="text-white hover:underline ">Companies</a></li>
+                </ul>
+
+                <p class="logout-paragraph">
+                    <i class="bi bi-box-arrow-left"></i>
+                    <a href="index.html" id="words" class="text-white-600 hover:underline"
+                        style="color: white;">Logout</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fixed Header -->
+    <div class="fixed-header">
+        <h2 class="text-4xl mb-4">Welcome!</h2>
+        <form class="search d-flex align-items-center p-3" role="search">
+            <input class="form-control  me-2 " type="search" placeholder="Search Here" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+        <!-- Profile and Notifications -->
+        <div class="top-icons">
+            <i class="bi bi-bell-fill" style="font-size: 1.2em"></i>
+            <i class="bi bi-chat" style="font-size: 1.2em"></i>
+            <a href="edit_admin.html" title="Edit Profile" class="flex flex-col items-center">
+                <i class="bi bi-person-circle text-2xl position-relative" style="font-size: 2em"></i>
+            </a>
+            <span class="text-sm text-black-800">Prossy Nabbona</span>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+
+    <div id="all" class="main-content section-view">
+        <!-- Horizontal Divs -->
+        <div class="horizontal-divs" style="display: flex; align-items:center;
+        margin-bottom :20px;" id="image1" >
+           
+
+            <div class="admin-info" style="display: flex; flex-direction:column; " id="amdinnewImage">
+                <img src="adminImage.jpeg" alt="Admin" style="width: 90px;height:90px; margin-bottom:-80px;  ">
+                <strong>Administrators</strong><br>
+                <strong>60</strong>
+            </div>
+            <div class="admin-info" style="display: flex; flex-direction:column; background-color:white; " id="amdinnewImage" >
+                <img src="innovatorImage.jpeg" alt="Admin" style="width: 90px;height:90px; margin-bottom:-80px;  ">
+                <strong>Innovators</strong><br>
+                <strong>300</strong>
+            </div>
+            <div class="admin-info" style="display: flex; flex-direction:column; ; background-color: white; " id="amdinnewImage">
+                <img src="companyImage.jpeg" alt="Admin" style="width: 90px;height:90px; margin-bottom:-80px;  ">
+
+                <strong>Companies</strong><br>
+                <strong>30</strong>
+            </div>
+        </div>
+
+        <!-- Large Horizontal Divs -->
+        <div class="large-horizontal-divs">
+            <div id="div1" class="attendance-statics">
+                <h2>Attendance Statics</h2>
+                <hr />
+                <!-- Add a container for the plot -->
+                <div id="myPlot" style="width:100%;height:400px;"></div>
+            </div>
+            <div class="companies">
+                <h2>Companies</h2>
+                <hr />
+                <br />
+                <table id="company-table" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Company Name</th>
+                            <th>Industry</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Initial companies will be populated here by JavaScript -->
+                    </tbody>
+                </table>
+                <button class="btn btn-primary mt-2" id="view-all-btn" onclick="location.href='companies.html';"
+                    style="color: rgb(252, 252, 252); border-radius:3px;">
+                    View All
+                </button>
+
+            </div>
+        </div>
+
+        <!-- Extra Large Horizontal Divs -->
+        <div class="extra-large-horizontal-divs">
+            <div class="attendance-today">
+                <h1> Attendance Today</h1>
+                <hr />
+                <br />
+                <table id="attendance-table" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Time In</th>
+                            <th>Time Out</th>
+                        </tr>
+                    </thead>
+                    <tbody id="attend">
+                        <!-- Attendance data will be populated here by JavaScript -->
+                    </tbody>
+                </table>
+                <button class="btn btn-primary mt-2 section-link" data-target="admin-ino" id="view-attendance-btn">View All</button>
+
+            </div>
+            <div class="innovators">
+                <h1>Innovators</h1>
+                <hr />
+                <br />
+                <table id="innovators-table" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Company</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Innovators data will be populated here by JavaScript -->
+                    </tbody>
+                </table>
+                <button class="btn btn-primary mt-2 section-link" data-target="member-ino" id="view-innovators-btn">View All</button>
+            </div>
+        </div>
+
+        <!-- Bigger Div -->
+        <div class="bigger-div">
+            <h1>Administrators</h1>
+            <hr />
+            <br />
+            <table id="administrators-table" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Department</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Administrators data will be populated here by JavaScript -->
+                </tbody>
+            </table>
+            <button class="btn btn-primary mt-2 section-link" data-target="member-admin" id="view-administrators-btn">View All</button>
+
+        </div>
+    </div>
+
+    <div class="section-view" id="admin">
+        <h3 id="tableadmin"><strong>TABLE FOR ADMINISTRATORS ATTENDANCE</strong></h3>
+        <div class="top-icons absolute top-25 right-4">
+            <a href="#" title="Export Files" class="btn-icon-text">
+                <i class="bi bi-file-earmark-arrow-down"></i>
+                <span>Export</span>
+            </a>
+            <a href="add_admin.html" title="Add Admin" class="btn-icon-text">
+                <i class="bi bi-person-plus"></i>
+                <span>Add Admin</span>
+            </a>
+        </div>
+        
+        <!-- Main filter dropdown -->
+        <div class="filter-container mb-4 flex gap-2  " id="filter">
+            <select id="filter-column" class="filter-select px-2 py-1 border rounded">
+                <option value="">Select Column to Filter</option>
+                <option value="name">Name</option>
+                <option value="company">Company</option>
+                <option value="role">Role</option>
+                <option value="phone">Phone</option>
+                <option value="email">Email</option>
+                <option value="email">Adress</option>
+            </select>
+            <select id="filter-value" class="filter-select px-2 py-1 border rounded" disabled>
+                <option value="">Select Value</option>
+            </select>
+        </div>
+
+        <div class="relative overflow-x-a9uto shadow-md sm:rounded-lg">
+            <table class=" ">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-300">
+                    <tr>
+                        <th scope="col" class="px-6 py-3">Name</th>
+                        <th scope="col" class="px-6 py-3">Company</th>
+                        <th scope="col" class="px-6 py-3">Role</th>
+                        <th scope="col" class="px-6 py-3">Phone</th>
+                        <th scope="col" class="px-6 py-3">Time In</th>
+                        <th scope="col" class="px-6 py-3">Time Out</th>
+                    </tr>
+                </thead>
+                <tbody id="admin-table-body">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div id="innovator" class="section-view">
+        <h3 id="tableadmin"><strong>TABLE FOR INNOVATORS ATTENDANCE</strong></h3>
+        <div class="top-icons absolute top-25 right-4">
+            <a href="#" title="Export Files" class="btn-icon-text">
+                <i class="bi bi-file-earmark-arrow-down"></i>
+                <span>Export</span>
+            </a>
+            <a href="add_admin.html" title="Add Admin" class="btn-icon-text">
+                <i class="bi bi-person-plus"></i>
+                <span>Add Admin</span>
+            </a>
+        </div>
+        
+        <!-- Main filter dropdown -->
+        <div class="filter-container mb-4 flex gap-2  " id="filter">
+            <select id="filter-column" class="filter-select px-2 py-1 border rounded">
+                <option value="">Select Column to Filter</option>
+                <option value="name">Name</option>
+                <option value="company">Company</option>
+                <option value="role">Role</option>
+                <option value="phone">Phone</option>
+                <option value="email">Email</option>
+                <option value="email">Adress</option>
+            </select>
+            <select id="filter-value" class="filter-select px-2 py-1 border rounded" disabled>
+                <option value="">Select Value</option>
+            </select>
+        </div>
+        <div class="">
+            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                        <th scope="col" class="px-6 py-3">Name</th>
+                        <th scope="col" class="px-6 py-3">Company</th>
+                        <th scope="col" class="px-6 py-3">Role</th>
+                        <th scope="col" class="px-6 py-3">Phone</th>
+                        <th scope="col" class="px-6 py-3">Time in</th>
+                        <th scope="col" class="px-6 py-3">Time out</th>
+                    </tr>
+                </thead>
+                <tbody id="innovators-table-body">
+                    <!-- Rows will be populated by JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div id="admin-ino" class="section-view">
+        <h2 id="tableadminino"><strong>ADMINISTRATORS AND INNOVATORS ATTENDANCE</strong></h2>
+        <div class="top-icons absolute top-25 right-4">
+            <a href="#" title="Export Files" class="btn-icon-text">
+                <i class="bi bi-file-earmark-arrow-down"></i>
+                <span>Export</span>
+            </a>
+            <a href="add_admin.html" title="Add Admin" class="btn-icon-text">
+                <i class="bi bi-person-plus"></i>
+                <span>Add Admin</span>
+            </a>
+        </div>
+        
+        <!-- Main filter dropdown -->
+        <div class="filter-container mb-4 flex gap-2  " id="filter">
+            <select id="filter-column" class="filter-select px-2 py-1 border rounded">
+                <option value="">Select Column to Filter</option>
+                <option value="name">Name</option>
+                <option value="company">Company</option>
+                <option value="role">Role</option>
+                <option value="phone">Phone</option>
+                <option value="email">Email</option>
+                <option value="email">Adress</option>
+            </select>
+            <select id="filter-value" class="filter-select px-2 py-1 border rounded" disabled>
+                <option value="">Select Value</option>
+            </select>
+        </div>
+
+        <div class="">
+            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                        <th scope="col" class="px-6 py-3">Name</th>
+                        <th scope="col" class="px-6 py-3">Company</th>
+                        <th scope="col" class="px-6 py-3">Role</th>
+                        <th scope="col" class="px-6 py-3">Phone</th>
+                        <th scope="col" class="px-6 py-3">Time in</th>
+                        <th scope="col" class="px-6 py-3">Time Out</th>
+                    </tr>
+                </thead>
+                <tbody id="all-table-body">
+                    <!-- Rows will be populated by JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!--Members Amin-->
+    <div id="member-admin" class="section-view">
+        <h3 id="tableadmin"><strong>MEMBERS UNDER INNOVATORS </strong></h3>
+        <div class="top-icons absolute top-25 right-4">
+            <a href="#" title="Export Files" class="btn-icon-text">
+                <i class="bi bi-file-earmark-arrow-down"></i>
+                <span>Export</span>
+            </a>
+            <a href="add_admin.html" title="Add Admin" class="btn-icon-text">
+                <i class="bi bi-person-plus"></i>
+                <span>Add Admin</span>
+            </a>
+        </div>
+        
+        <!-- Main filter dropdown -->
+        <div class="filter-container mb-4 flex gap-2  " id="filter">
+            <select id="filter-column" class="filter-select px-2 py-1 border rounded">
+                <option value="">Select Column to Filter</option>
+                <option value="name">Name</option>
+                <option value="company">Company</option>
+                <option value="role">Role</option>
+                <option value="phone">Phone</option>
+                <option value="email">Email</option>
+                <option value="email">Adress</option>
+            </select>
+            <select id="filter-value" class="filter-select px-2 py-1 border rounded" disabled>
+                <option value="">Select Value</option>
+            </select>
+        </div>
+        <div class="">
+            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                        <th scope="col" class="px-6 py-3">Name</th>
+                        <th scope="col" class="px-6 py-3">Company</th>
+                        <th scope="col" class="px-6 py-3">Role</th>
+                        <th scope="col" class="px-6 py-3">Phone</th>
+                        <th scope="col" class="px-6 py-3">Email</th>
+
+                    </tr>
+                </thead>
+                <tbody id="member-admin-table-body">
+                    <!-- Rows will be populated by JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!--Member Innovators-->
+    <div id="member-ino" class="section-view">
+        <h3 id="tableadmin"><strong>MEMBERS UNDER ADMINISTRATORS</strong></h3>
+        <div class="top-icons absolute top-25 right-4">
+            <a href="#" title="Export Files" class="btn-icon-text">
+                <i class="bi bi-file-earmark-arrow-down"></i>
+                <span>Export</span>
+            </a>
+            <a href="add_admin.html" title="Add Admin" class="btn-icon-text">
+                <i class="bi bi-person-plus"></i>
+                <span>Add Admin</span>
+            </a>
+        </div>
+        
+        <!-- Main filter dropdown -->
+        <div class="filter-container mb-4 flex gap-2  " id="filter">
+            <select id="filter-column" class="filter-select px-2 py-1 border rounded">
+                <option value="">Select Column to Filter</option>
+                <option value="name">Name</option>
+                <option value="company">Company</option>
+                <option value="role">Role</option>
+                <option value="phone">Phone</option>
+                <option value="email">Email</option>
+                <option value="email">Adress</option>
+            </select>
+            <select id="filter-value" class="filter-select px-2 py-1 border rounded" disabled>
+                <option value="">Select Value</option>
+            </select>
+        </div>
+
+        <div class="">
+
+            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                        <th scope="col" class="px-6 py-3">Name</th>
+                        <th scope="col" class="px-6 py-3">Company</th>
+                        <th scope="col" class="px-6 py-3">Role</th>
+                        <th scope="col" class="px-6 py-3">Phone</th>
+                        <th scope="col" class="px-6 py-3">Email</th>
+
+                    </tr>
+                </thead>
+                <tbody id="member-ino-table-body">
+                    <!-- Rows will be populated by JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!--All Members-->
+    <div id="admin-all" class="section-view">
+        <h3 id="tableadmin"><strong>MEMBERS INNOVATORS AND ADMINISTRATORS</strong></h3>
+        <div class="top-icons absolute top-25 right-4">
+            <a href="#" title="Export Files" class="btn-icon-text">
+                <i class="bi bi-file-earmark-arrow-down"></i>
+                <span>Export</span>
+            </a>
+            <a href="add_admin.html" title="Add Admin" class="btn-icon-text">
+                <i class="bi bi-person-plus"></i>
+                <span>Add Admin</span>
+            </a>
+        </div>
+
+        <!-- Main filter dropdown -->
+        <div class="filter-container mb-4 "  id="filter" style="border:1px solid;">
+            <select id="filter-column" class="filter-select px-2 py-1 border rounded">
+                <option value="">Select Column to Filter</option>
+                <option value="name">Name</option>
+                <option value="company">Company</option>
+                <option value="role">Role</option>
+                <option value="phone">Phone</option>
+                <option value="email">Email</option>
+                <option value="email">Adress</option>
+            </select>
+            <select id="filter-value" class="filter-select px-2 py-1 border rounded" disabled>
+                <option value="">Select Value</option>
+            </select>
+        </div>
+
+
+        <div class="tablemember">
+            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                        <th scope="col" class="px-6 py-3">Name</th>
+                        <th scope="col" class="px-6 py-3">Company</th>
+                        <th scope="col" class="px-6 py-3">Role</th>
+                        <th scope="col" class="px-6 py-3">Phone</th>
+                        <th scope="col" class="px-6 py-3">Email</th>
+                        <th scope="col" class="px-6 py-3">Adress</th>
+
+
+                    </tr>
+                </thead>
+                <tbody id="allmember-table-body">
+                    <!-- Rows will be populated by JavaScript -->
+                </tbody>
+            </table>
+        </div>
+       
+    </div>
+
+
+    
+</body>
+<script>
+        function toggleDropdown(id) {
+            const dropdown = document.getElementById(id);
+            if (dropdown.style.display === "none" || dropdown.style.display === "") {
+                dropdown.style.display = "block";
+            } else {
+                dropdown.style.display = "none";
+            }
+        }
+
+        // Define your initial and all data for each table
+        const initialAttendanceData = [
+            { name: "John Doe", timeIn: "09:00", timeOut: "17:00" },
+            { name: "Jane Smith", timeIn: "08:30", timeOut: "16:30" },
+        ];
+
+        const initialCompaniesData = [
+            { logo: "companyImage.jpeg", companyName: "Company A", industry: "Tech" },
+            { logo: "companyImage.jpeg", companyName: "Company B", industry: "Finance" },
+            { logo: "companyImage.jpeg", companyName: "Company D", industry: "Education" },
+             { logo: "companyImage.jpeg", companyName: "Company D", industry: "Education" },
+            { logo: "companyImage.jpeg", companyName: "Company D", industry: "Education" },
+             { logo: "companyImage.jpeg", companyName: "Company D", industry: "Education" },
+
+        ];
+
+        const initialInnovatorsData = [
+            { name: "Alice Johnson", email: "alice@example.com", company: "Tech Co" },
+            { name: "Bob Brown", email: "bob@example.com", company: "Finance Inc" },
+        ];
+
+        const initialAdministratorsData = [
+            { logo: "new.jpg", name: "Admin A", email: "adminA@example.com", department: "IT" },
+            { logo: "new.jpg", name: "Admin B", email: "adminB@example.com", department: "HR" },
+        ];
+
+        // Define your full data for each table
+        const allAttendanceData = [
+            ...initialAttendanceData,
+            { name: "Mike Ross", timeIn: "10:00", timeOut: "18:00" },
+            { name: "Rachel Zane", timeIn: "09:30", timeOut: "17:30" },
+        ];
+
+      //  const allCompaniesData = [
+           // ...initialCompaniesData,
+           // { logo: "new.jpg", companyName: "Company C", industry: "Healthcare" },
+           // { logo: "new.jpg", companyName: "Company D", industry: "Education" },
+            //{ logo: "new.jpg", companyName: "Company D", industry: "Education" },
+          //  { logo: "new.jpg", companyName: "Company D", industry: "Education" },
+        //];
+
+        const allInnovatorsData = [
+            ...initialInnovatorsData,
+            { name: "Charlie White", email: "charlie@example.com", company: "Healthcare Co" },
+            { name: "Dave Green", email: "dave@example.com", company: "Education Inc" },
+        ];
+
+        const allAdministratorsData = [
+            ...initialAdministratorsData,
+            { logo: "new.jpg", name: "Admin C", email: "adminC@example.com", department: "Finance" },
+            { logo: "new.jpg", name: "Admin D", email: "adminD@example.com", department: "Marketing" },
+        ];
+
+        // Function to populate table with data
+        function populateTable(tableId, data) {
+            const tableBody = document.getElementById(tableId).querySelector("tbody");
+            tableBody.innerHTML = ""; // Clear existing rows
+
+            data.forEach(row => {
+                const newRow = document.createElement("tr");
+                Object.values(row).forEach(cellData => {
+                    const newCell = document.createElement("td");
+                    newCell.textContent = cellData;
+                    newRow.appendChild(newCell);
+                });
+                tableBody.appendChild(newRow);
+            });
+        }
+
+        // Populate initial data
+        populateTable("attendance-table", initialAttendanceData);
+        populateTable("company-table", initialCompaniesData);
+        populateTable("innovators-table", initialInnovatorsData);
+        populateTable("administrators-table", initialAdministratorsData);
+
+        // Add event listeners for view-all buttons
+        document.getElementById("view-attendance-btn").addEventListener("click", () => {
+            populateTable("attendance-table", allAttendanceData);
+        });
+
+        document.getElementById("view-all-btn").addEventListener("click", () => {
+            populateTable("company-table", allCompaniesData);
+        });
+
+        document.getElementById("view-innovators-btn").addEventListener("click", () => {
+            populateTable("innovators-table", allInnovatorsData);
+        });
+
+        document.getElementById("view-administrators-btn").addEventListener("click", () => {
+            populateTable("administrators-table", allAdministratorsData);
+        });
+        //FOR IMAGES
+        function populateTable(tableId, data) {
+            const tableBody = document.getElementById(tableId).querySelector("tbody");
+            tableBody.innerHTML = ""; // Clear existing rows
+
+            data.forEach(row => {
+                const newRow = document.createElement("tr");
+                Object.keys(row).forEach(key => {
+                    const newCell = document.createElement("td");
+                    if (key === 'logo') {
+                        const img = document.createElement('img');
+                        img.src = row[key];
+                        img.alt = "company logo";
+                        img.style.width = "50px"; // Adjust the size as needed
+                        newCell.appendChild(img);
+                    } else {
+                        newCell.textContent = row[key];
+                    }
+                    newRow.appendChild(newCell);
+                });
+                tableBody.appendChild(newRow);
+            });
+        }
+
+
+        // Plotly chart
+        const xArray = ["Jan", "Feb", "March", "April", "May"];
+        const yArray = [12, 20, 44, 50, 60];
+
+        const data = [{
+            x: xArray,
+            y: yArray,
+            type: "bar",
+            orientation: "v",
+            marker: { color: "rgba(0,0,255)" }
+        }];
+
+        const layout = { title: "Attendance by Month" };
+
+        Plotly.newPlot("myPlot", data, layout);
+
+        //FOR THE INNOVATORS attendance
+        const links = document.querySelectorAll(".section-link")
+        const sections = document.querySelectorAll(".section-view")
+
+        console.log(sections)
+
+        links.forEach((link) => {
+            link.addEventListener("click", function (event) {
+                const targetId = this.getAttribute("data-target")
+                event.preventDefault()
+                showSection(targetId)
+
+            })
+        })
+
+        function showSection(targetId) {
+            sections.forEach(section => {
+                section.classList.toggle("show", section.id === targetId);
+
+
+            })
+        }
+
+        showSection("all")
+
+
+        //Attendance  INNOVATORS sCRIPT
+        // Sample admin data
+        const adminsInnovators = [
+            { id: '1', name: 'Neil Sims', department: 'Development', role: 'React Developer', phone: '+1234567890', lastLoginDate: '2024-06-10', lastLoginTime: '08:30' },
+            { id: '2', name: 'Bonnie Green', department: 'Design', role: 'Designer', phone: '+1234567890', lastLoginDate: '2024-06-09', lastLoginTime: '09:45' },
+            { id: '3', name: 'Michael Gough', department: 'Marketing', role: 'Marketing Specialist', phone: '+1234567890', lastLoginDate: '2024-06-10', lastLoginTime: '10:15' },
+            { id: '4', name: 'Lana Byrd', department: 'Sales', role: 'Sales Manager', phone: '+1234567890', lastLoginDate: '2024-06-08', lastLoginTime: '11:30' },
+
+        ];
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const tableBody = document.getElementById('innovators-table-body');
+
+            adminsInnovators.forEach(admin => {
+                const row = document.createElement('tr');
+                row.className = 'bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600';
+
+                row.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                        <div class="flex items-center">
+                            <img class="w-10 h-10 rounded-full mr-4" src="Image.jpg" alt="${admin.name}">
+                            <div>${admin.name}</div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${admin.department}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${admin.role}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${admin.phone}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${admin.lastLoginDate}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${admin.lastLoginTime}</td>
+                `;
+
+                tableBody.appendChild(row);
+            });
+        });
+
+
+        ///Administrators
+        // Sample admin data
+        const admins = [
+            { id: '1', name: 'Neil Sims', department: 'Development', role: 'React Developer', phone: '+1234567890', lastLoginDate: '2024-06-10', lastLoginTime: '08:30' },
+            { id: '2', name: 'Bonnie Green', department: 'Design', role: 'Designer', phone: '+1234567890', lastLoginDate: '2024-06-09', lastLoginTime: '09:45' },
+            { id: '3', name: 'Michael Gough', department: 'Marketing', role: 'Marketing Specialist', phone: '+1234567890', lastLoginDate: '2024-06-10', lastLoginTime: '10:15' },
+            { id: '4', name: 'Lana Byrd', department: 'Sales', role: 'Sales Manager', phone: '+1234567890', lastLoginDate: '2024-06-08', lastLoginTime: '11:30' },
+            { id: '4', name: 'Lana Byrd', department: 'Sales', role: 'Sales Manager', phone: '+1234567890', lastLoginDate: '2024-06-08', lastLoginTime: '11:30' },
+            { id: '4', name: 'Lana Byrd', department: 'Sales', role: 'Sales Manager', phone: '+1234567890', lastLoginDate: '2024-06-08', lastLoginTime: '11:30' },
+
+
+        ];
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const tableBody = document.getElementById('admin-table-body');
+
+            admins.forEach(admin => {
+                const row = document.createElement('tr');
+                row.className = 'bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600';
+
+                row.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                        <div class="flex items-center">
+                            <img class="w-10 h-10 rounded-full mr-4" src="Image.jpg" alt="${admin.name}">
+                            <div>${admin.name}</div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${admin.department}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${admin.role}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${admin.phone}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${admin.lastLoginDate}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${admin.lastLoginTime}</td>
+                `;
+
+                tableBody.appendChild(row);
+            });
+        });
+
+        //all
+        //Attendance  INNOVATORS sCRIPT
+        // Sample admin data
+        const allAdmin = [
+            { id: '1', name: 'Neil Sims', department: 'Development', role: 'React Developer', phone: '+1234567890', lastLoginDate: '2024-06-10', lastLoginTime: '08:30' },
+            { id: '2', name: 'Bonnie Green', department: 'Design', role: 'Designer', phone: '+1234567890', lastLoginDate: '2024-06-09', lastLoginTime: '09:45' },
+            { id: '3', name: 'Michael Gough', department: 'Marketing', role: 'Marketing Specialist', phone: '+1234567890', lastLoginDate: '2024-06-10', lastLoginTime: '10:15' },
+            { id: '4', name: 'Lana Byrd', department: 'Sales', role: 'Sales Manager', phone: '+1234567890', lastLoginDate: '2024-06-08', lastLoginTime: '11:30' },
+
+        ];
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const tableBody = document.getElementById('all-table-body');
+
+            allAdmin.forEach(admin => {
+                const row = document.createElement('tr');
+                row.className = 'bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600';
+
+                row.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                        <div class="flex items-center">
+                            <img class="w-10 h-10 rounded-full mr-4" src="Image.jpg" alt="${admin.name}">
+                            <div>${admin.name}</div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${admin.department}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${admin.role}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${admin.phone}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${admin.lastLoginDate}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${admin.lastLoginTime}</td>
+                `;
+
+                tableBody.appendChild(row);
+            });
+        });
+
+
+        //Members admin 
+        const admintablemember = [
+            { id: '1', name: 'Neil Sims', company: 'Development', role: 'React Developer', phone: '+1234567890', email: 'prossienabbona20@222gmail.com' },
+            { id: '1', name: 'Neil Sims', company: 'Development', role: 'React Developer', phone: '+1234567890', email: 'prossienabbona20@222gmail.com' },
+            { id: '1', name: 'Neil Sims', company: 'Development', role: 'React Developer', phone: '+1234567890', email: 'prossienabbona20@222gmail.com' },
+            { id: '1', name: 'Neil Sims', company: 'Development', role: 'React Developer', phone: '+1234567890', email: 'prossienabbona20@222gmail.com' },
+            { id: '1', name: 'Neil Sims', company: 'Development', role: 'React Developer', phone: '+1234567890', email: 'prossienabbona20@222gmail.com' },
+
+
+        ];
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const tableBody = document.getElementById('member-admin-table-body');
+
+            admintablemember.forEach(admin => {
+                const row = document.createElement('tr');
+                row.className = 'bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600';
+
+                row.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                        <div class="flex items-center">
+                            <img class="w-10 h-10 rounded-full mr-4" src="Image.jpg" alt="${admin.name}">
+                            <div>${admin.name}</div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${admin.company}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${admin.role}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${admin.phone}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${admin.email}</td>
+                    
+                `;
+
+                tableBody.appendChild(row);
+            });
+        });
+        //Innovators
+
+        const adminsInno = [
+            { id: '1', name: 'Neil Sims', company: 'Development', role: 'React Developer', phone: '+1234567890', email: 'prossienabbona20@gmail.com' },
+            { id: '1', name: 'Neil Sims', company: 'Development', role: 'React Developer', phone: '+1234567890', email: 'prossienabbona20@gmail.com' },
+            { id: '1', name: 'Neil Sims', company: 'Development', role: 'React Developer', phone: '+1234567890', email: 'prossienabbona20@gmail.com' },
+            { id: '1', name: 'Neil Sims', company: 'Development', role: 'React Developer', phone: '+1234567890', email: 'prossienabbona20@gmail.com' },
+            { id: '1', name: 'Neil Sims', company: 'Development', role: 'React Developer', phone: '+1234567890', email: 'prossienabbona20@gmail.com' },
+            { id: '1', name: 'Neil Sims', company: 'Development', role: 'React Developer', phone: '+1234567890', email: 'prossienabbona20@gmail.com' }
+
+        ];
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const tableBody = document.getElementById('member-ino-table-body');
+
+            adminsInno.forEach(admin => {
+                const row = document.createElement('tr');
+                row.className = 'bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600';
+
+                row.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                        <div class="flex items-center">
+                            <img class="w-10 h-10 rounded-full mr-4" src="Image.jpg" alt="${admin.name}">
+                            <div>${admin.name}</div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${admin.company}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${admin.role}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${admin.phone}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${admin.email}</td>
+                `;
+
+                tableBody.appendChild(row);
+            });
+        });
+        //all members
+        const adminsallMembers = [
+            { id: '1', name: 'Neil Sims', company: 'Development', role: 'React Developer', phone: '+1234567890', email: 'prossienabbona20@gmail.com',address:'Luzira' },
+            { id: '1', name: 'Neil Sims', company: 'Development', role: 'React Developer', phone: '+1234567890', email: 'prossienabbona20@gmail.com', address: 'Luzira' },
+            { id: '5', name: 'Neil Sims', company: 'Development', role: 'React Developer', phone: '+1234567890', email: 'prossienabbona20@gmail.com', address: 'Luzira' },
+            { id: '1', name: 'Neil Sims', company: 'Development', role: 'React Developer', phone: '+1234567890', email: 'prossienabbona20@gmail.com', address: 'Luzira' },
+            { id: '1', name: 'Neil Sims', company: 'Development', role: 'React Developer', phone: '+1234567890', email: 'prossienabbona20@gmail.com', address: 'Luzira' },
+            { id: '1', name: 'Neil Sims', company: 'Development', role: 'React Developer', phone: '+1234567890', email: 'prossienabbona20@gmail.com', address: 'Luzira' },
+
+
+        ];
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const tableBody = document.getElementById('allmember-table-body');
+
+            adminsallMembers.forEach(admin => {
+                const row = document.createElement('tr');
+                row.className = 'bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600';
+
+                row.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                        <div class="flex items-center">
+                            <img class="w-10 h-10 rounded-full mr-4" src="Image.jpg" alt="${admin.name}">
+                            <div>${admin.name}</div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${admin.company}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${admin.role}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${admin.phone}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${admin.email}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${admin.address}</td>
+
+                `;
+
+                tableBody.appendChild(row);
+            });
+        });
+
+      const attendtoday = [
+            { id: '1', name: 'Neil Sims', department: 'Development', role: 'React Developer', phone: '+1234567890', lastLoginDate: '2024-06-10', lastLoginTime: '08:30' },
+            { id: '2', name: 'Bonnie Green', department: 'Design', role: 'Designer', phone: '+1234567890', lastLoginDate: '2024-06-09', lastLoginTime: '09:45' },
+            { id: '3', name: 'Michael Gough', department: 'Marketing', role: 'Marketing Specialist', phone: '+1234567890', lastLoginDate: '2024-06-10', lastLoginTime: '10:15' },
+            { id: '4', name: 'Lana Byrd', department: 'Sales', role: 'Sales Manager', phone: '+1234567890', lastLoginDate: '2024-06-08', lastLoginTime: '11:30' },
+
+        ];
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const tableBody = document.getElementById('allmember-table-body');
+
+            attendtoday.forEach(admin => {
+                const row = document.createElement('tr');
+                row.className = 'bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600';
+
+                row.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                        <div class="flex items-center">
+                            <img class="w-10 h-10 rounded-full mr-4" src="Image.jpg" alt="${admin.name}">
+                            <div>${admin.name}</div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${admin.department}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${admin.role}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${admin.phone}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${admin.lastLoginDate}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${admin.lastLoginTime}</td>
+                `;
+
+                tableBody.appendChild(row);
+            });
+        });
+
+
+
+
+
+    </script>
+
+</html>
